@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un mensaje especial para ti</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff0f5;
+            text-align: center;
+            padding: 20px;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #ff6b81;
+            margin-bottom: 20px;
+        }
+        
+        .frase {
+            font-size: 1.2em;
+            margin: 25px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #fff9fa;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .frase.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .proposal {
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #ffebee;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .proposal h2 {
+            color: #e91e63;
+        }
+        
+        .buttons {
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        #btnSi {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        #btnNo {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+        
+        #btnNo:hover {
+            position: relative;
+        }
+        
+        #finalMessage {
+            display: none;
+            margin-top: 30px;
+            font-size: 1.3em;
+            color: #e91e63;
+            font-weight: bold;
+        }
+        
+        .hearts {
+            color: #ff6b81;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>❤️ Mensajes especiales para ti ❤️</h1>
+        
+        <div id="frase1" class="frase">Cada día me gustas más, sin razón aparente, simplemente porque eres tú.</div>
+        <div id="frase2" class="frase">Tu sonrisa es mi lugar favorito en todo el mundo.</div>
+        <div id="frase3" class="frase">Me encanta cómo haces que los días normales se sientan especiales.</div>
+        <div id="frase4" class="frase">Eres la persona con la que quiero compartir mis pequeños momentos.</div>
+        <div id="frase5" class="frase">Tu forma de ser hace que todo a tu alrededor sea mejor.</div>
+        <div id="frase6" class="frase">Me haces sentir cosas que no sabía que podía sentir.</div>
+        <div id="frase7" class="frase">Contigo aprendí que el amor no es complicado cuando es con la persona correcta.</div>
+        <div id="frase8" class="frase">Eres mi pensamiento favorito al despertar y el último antes de dormir.</div>
+        <div id="frase9" class="frase">No hay nadie con quien prefiera estar que contigo.</div>
+        <div id="frase10" class="frase">Eres la razón por la que creo en el destino.</div>
+        
+        <div class="proposal" id="proposal">
+            <h2>Después de todas estas razones...</h2>
+            <p>¿Quieres ser mi novia?</p>
+            <div class="buttons">
+                <button id="btnSi">¡Sí! ❤️</button>
+                <button id="btnNo">No</button>
+            </div>
+        </div>
+        
+        <div id="finalMessage">
+            <p>¡Sabía que dirías que sí! <span class="hearts">❤️❤️❤️</span></p>
+            <p>Ahora eres oficialmente la novia más afortunada del mundo.</p>
+        </div>
+    </div>
+
+    <script>
+        // Mostrar frases una por una con animación
+        let currentFrase = 1;
+        const totalFrases = 10;
+        
+        function showNextFrase() {
+            const fraseElement = document.getElementById(`frase${currentFrase}`);
+            fraseElement.classList.add('visible');
+            
+            currentFrase++;
+            
+            if (currentFrase <= totalFrases) {
+                setTimeout(showNextFrase, 2000);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('proposal').style.display = 'block';
+                }, 1500);
+            }
+        }
+        
+        // Iniciar la secuencia de frases
+        setTimeout(showNextFrase, 500);
+        
+        // Manejar el botón de Sí
+        document.getElementById('btnSi').addEventListener('click', function() {
+            document.getElementById('proposal').style.display = 'none';
+            document.getElementById('finalMessage').style.display = 'block';
+            
+            // Efecto de corazones
+            const hearts = ['❤️', '💖', '💕', '💗', '💓'];
+            const container = document.querySelector('.container');
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.position = 'absolute';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = Math.random() * 100 + '%';
+                    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    heart.style.opacity = '0';
+                    heart.style.animation = 'float 3s ease-in forwards';
+                    
+                    // Crear animación
+                    const keyframes = `
+                        @keyframes float {
+                            0% { transform: translateY(0); opacity: 0; }
+                            10% { opacity: 1; }
+                            90% { opacity: 1; }
+                            100% { transform: translateY(-100px); opacity: 0; }
+                        }
+                    `;
+                    
+                    const style = document.createElement('style');
+                    style.innerHTML = keyframes;
+                    document.head.appendChild(style);
+                    
+                    container.appendChild(heart);
+                    
+                    // Eliminar después de la animación
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }, i * 100);
+            }
+        });
+        
+        // Manejar el botón de No (movimiento aleatorio)
+        document.getElementById('btnNo').addEventListener('mouseover', function() {
+            const btnNo = this;
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            
+            const maxX = containerRect.width - btnNo.offsetWidth;
+            const maxY = containerRect.height - btnNo.offsetHeight;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = randomX + 'px';
+            btnNo.style.top = randomY + 'px';
+        });
+        
+        // Si logran hacer clic en No (por si acaso)
+        document.getElementById('btnNo').addEventListener('click', function() {
+            alert("¡Ops! Ese botón no funciona... la única respuesta válida es ¡Sí! 😊");
+        });
+    </script>
+</body>
+</html>

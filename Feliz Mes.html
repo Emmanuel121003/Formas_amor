@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Mes, Mi Amor</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: radial-gradient(circle, #1b1b2f, #121212);
+            color: white;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        .container {
+            padding: 2rem;
+        }
+        h1, h2 {
+            color: #ff4d6d;
+        }
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            margin: 1rem auto;
+            box-shadow: 0 0 15px #ff4d6d;
+            background-color: #333;
+            background-size: cover;
+            background-position: center;
+        }
+        .password-input {
+            width: 200px;
+            margin: 0 auto 1rem;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+            border: none;
+            border-radius: 10px;
+            background-color: #222;
+            color: white;
+        }
+        .hint {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 70px);
+            gap: 10px;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .keypad button {
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50%;
+            padding: 1rem;
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 0 5px #000;
+            cursor: pointer;
+        }
+        .enter-btn {
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 30px;
+            background-color: #ff4d6d;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .carousel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 2rem;
+        }
+        .carousel img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .carousel button {
+            background: #ff4d6d;
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="screen1">
+        <h1>¡Feliz Mes, Mi Amor!</h1>
+        <div class="profile-pic" style="background-image: url('URL-DE-TU-IMAGEN.jpg');">
+            <!-- 💡 Reemplaza 'URL-DE-TU-IMAGEN.jpg' con la URL o ruta local de tu imagen -->
+        </div>
+        <h2>Ingresa la contraseña</h2>
+        <p class="hint">Pista: Un día muy especial para nosotros</p>
+        <label for="password" class="hint"></label>
+        <input type="password" id="password" class="password-input" readonly title="Ingresa la contraseña especial" placeholder="Contraseña">
+        <div class="keypad">
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button onclick="clearPassword()">⌫</button>
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="checkPassword()">✔</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="screen2">
+        <h1>Diana Fernández</h1>
+        <p>Mi vida, este día es especial ya que sea nuestro aniversario y para celebrar el amor que compartimos. Esta sorpresa es para ti, porque eres mi mundo.</p>
+        <p><em>"Tú eres mi hogar, mi refugio, mi amor por siempre."</em></p>
+        <div class="carousel">
+            <button onclick="prevImage()">←</button>
+            <img id="carouselImage" src="URL-DE-TU-IMAGEN1.jpg" alt="imagen">
+            <button onclick="nextImage()">→</button>
+        </div>
+    </div>
+
+    <script>
+        const correctPassword = "290822"; // Cambia esta contraseña si quieres otra
+        function appendNumber(num) {
+            document.getElementById("password").value += num;
+        }
+        function clearPassword() {
+            document.getElementById("password").value = "";
+        }
+        function checkPassword() {
+            const input = document.getElementById("password").value;
+            if (input === correctPassword) {
+                //document.getElementById("screen1").classList.add("hidden");
+                document.getElementById("screen2").classList.remove("hidden");
+            } else {
+                alert("Contraseña incorrecta");
+            }
+        }
+
+        const images = ["URL-DE-TU-IMAGEN1.jpg", "URL-DE-TU-IMAGEN2.jpg"];
+        let current = 0;
+        function showImage(index) {
+            document.getElementById("carouselImage").src = images[index];
+        }
+        function prevImage() {
+            current = (current - 1 + images.length) % images.length;
+            showImage(current);
+        }
+        function nextImage() {
+            current = (current + 1) % images.length;
+            showImage(current);
+        }
+    </script>
+</body>
+</html>

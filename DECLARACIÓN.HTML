@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declaración de Amor</title>
+    <style>
+        /* Reset de estilos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 20%);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            perspective: 1000px;
+        }
+
+        .text-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .text-box {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 3px solid;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.6;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), 
+                        0 0 30px rgba(255, 0, 255, 0.2);
+            opacity: 0;
+            transform: translateY(50px) rotateX(-30deg);
+            transition: opacity 1s, transform 1s;
+        }
+
+        .text-box.visible {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+
+        .blue {
+            border-color: cyan;
+            animation: borderGlowBlue 4s infinite alternate;
+        }
+
+        .pink {
+            border-color: magenta;
+            animation: borderGlowPink 4s infinite alternate 0.5s;
+        }
+
+        .text-box::before,
+        .text-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 3px solid;
+            pointer-events: none;
+            opacity: 0.5;
+            border-radius: 10px;
+        }
+
+        .blue::before {
+            border-color: cyan;
+            animation: pulseBorder 3s infinite ease-in-out;
+        }
+
+        .blue::after {
+            border-color: magenta;
+            animation: pulseBorder 3s infinite ease-in-out 0.5s;
+        }
+
+        .pink::before {
+            border-color: magenta;
+            animation: pulseBorder 3s infinite ease-in-out 0.3s;
+        }
+
+        .pink::after {
+            border-color: cyan;
+            animation: pulseBorder 3s infinite ease-in-out 0.8s;
+        }
+
+        .text-box p {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+            transition-delay: calc(var(--order) * 0.3s);
+        }
+
+        .text-box p.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .button-section {
+            margin-top: 30px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 1s, transform 1s;
+        }
+
+        .button-section.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #startButton {
+            background-color: magenta;
+            color: white;
+        }
+
+        #startButton:hover {
+            background-color: darkmagenta;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 255, 0.4);
+        }
+
+        #startButton::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        #startButton:hover::before {
+            left: 100%;
+        }
+
+        #restartButton {
+            background-color: cyan;
+            color: #000;
+            display: none;
+        }
+
+        #restartButton:hover {
+            background-color: darkcyan;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.4);
+        }
+
+        #countdown {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        #heart {
+            width: 100px;
+            height: 100px;
+            background-color: #ff4d88;
+            margin: 30px auto;
+            position: relative;
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 1s;
+            box-shadow: 
+                0 0 40px #ff4d88,
+                0 0 80px #ff4d88,
+                0 0 120px #ff4d88;
+            animation: pulse 2s infinite, float 4s infinite ease-in-out;
+        }
+
+        #heart.visible {
+            opacity: 1;
+        }
+
+        #heart:before,
+        #heart:after {
+            content: "";
+            width: 100px;
+            height: 100px;
+            background-color: #ff4d88;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        #heart:before {
+            top: -50px;
+            left: 0;
+        }
+
+        #heart:after {
+            top: 0;
+            left: -50px;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: rotate(45deg) scale(1);
+            }
+            50% {
+                transform: rotate(45deg) scale(1.1);
+            }
+            100% {
+                transform: rotate(45deg) scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: rotate(45deg) translateY(0);
+            }
+            50% {
+                transform: rotate(45deg) translateY(-20px);
+            }
+        }
+
+        @keyframes pulseBorder {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes borderGlowBlue {
+            0% {
+                box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), 
+                             0 0 30px rgba(255, 0, 255, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(0, 255, 255, 0.6), 
+                             0 0 50px rgba(255, 0, 255, 0.4);
+            }
+        }
+
+        @keyframes borderGlowPink {
+            0% {
+                box-shadow: 0 0 15px rgba(255, 0, 255, 0.3), 
+                             0 0 30px rgba(0, 255, 255, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(255, 0, 255, 0.6), 
+                             0 0 50px rgba(0, 255, 255, 0.4);
+            }
+        }
+
+        /* Efecto de confeti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+            animation: confettiFall 5s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Estrellas en el fondo */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="container">
+        <main>
+            <section class="text-section">
+                <div class="text-box blue" id="box1">
+                    <p id="text1" style="--order: 1">En el vasto cosmos de mi existencia,</p>
+                    <p id="text2" style="--order: 2">tú eres mi constelación más bella,</p>
+                    <p id="text3" style="--order: 3">guiando cada uno de mis sueños.</p>
+                </div>
+                <div class="text-box pink" id="box2">
+                    <p id="text4" style="--order: 1">Me enamoré de ti hace...</p>
+                    <p id="countdown" style="--order: 2">750 días, 21 hs, 24 min, 49 seg</p>
+                    <p id="text5" style="--order: 3">Y cada día te quiero más!</p>
+                </div>
+            </section>
+            <div id="heart"></div>
+            <section class="button-section" id="buttons">
+                <button id="startButton">INICIAR DECLARACIÓN ❤️</button>
+                <button id="restartButton">REVIVIR DECLARACIÓN ✨</button>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const startButton = document.getElementById("startButton");
+            const restartButton = document.getElementById("restartButton");
+            const countdownElement = document.getElementById("countdown");
+            const heart = document.getElementById("heart");
+            const box1 = document.getElementById("box1");
+            const box2 = document.getElementById("box2");
+            const buttons = document.getElementById("buttons");
+            const starsContainer = document.getElementById("stars");
+
+            // Crear estrellas de fondo
+            createStars();
+
+            // Mostrar botones
+            setTimeout(() => {
+                buttons.classList.add("visible");
+            }, 500);
+
+            let countdownInterval;
+            let originalDate = new Date("2022-08-29"); // Cambia esta fecha por tu fecha especial
+
+            function startCountdown() {
+                // Mostrar elementos con animación
+                box1.classList.add("visible");
+                setTimeout(() => {
+                    box2.classList.add("visible");
+                    heart.classList.add("visible");
+                }, 500);
+
+                // Mostrar texto progresivamente
+                setTimeout(() => showText("#box1"), 1000);
+                setTimeout(() => showText("#box2"), 2000);
+
+                // Iniciar contador
+                countdownInterval = setInterval(() => {
+                    const now = new Date().getTime();
+                    const distance = now - originalDate.getTime();
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    countdownElement.textContent = `${days} días, ${hours} hs, ${minutes} min, ${seconds} seg`;
+                }, 1000);
+            }
+
+            function showText(containerSelector) {
+                const container = document.querySelector(containerSelector);
+                const paragraphs = container.querySelectorAll("p");
+                
+                paragraphs.forEach(p => {
+                    setTimeout(() => {
+                        p.classList.add("show");
+                    }, parseFloat(p.style.getPropertyValue("--order")) * 300);
+                });
+            }
+
+            function createStars() {
+                const starsCount = 100;
+                for (let i = 0; i < starsCount; i++) {
+                    const star = document.createElement("div");
+                    star.classList.add("star");
+                    
+                    // Tamaño aleatorio entre 1 y 3px
+                    const size = Math.random() * 2 + 1;
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    
+                    // Posición aleatoria
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    
+                    // Duración de animación aleatoria
+                    star.style.setProperty("--duration", `${Math.random() * 5 + 3}s`);
+                    
+                    // Retraso aleatorio
+                    star.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    starsContainer.appendChild(star);
+                }
+            }
+
+            function createConfetti() {
+                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+                const confettiCount = 100;
+                
+                for (let i = 0; i < confettiCount; i++) {
+                    const confetti = document.createElement("div");
+                    confetti.classList.add("confetti");
+                    
+                    // Color aleatorio
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Tamaño aleatorio
+                    const size = Math.random() * 10 + 5;
+                    confetti.style.width = `${size}px`;
+                    confetti.style.height = `${size}px`;
+                    
+                    // Forma aleatoria (círculo o cuadrado)
+                    if (Math.random() > 0.5) {
+                        confetti.style.borderRadius = "50%";
+                    } else {
+                        confetti.style.borderRadius = "0";
+                    }
+                    
+                    // Posición inicial aleatoria
+                    confetti.style.left = `${Math.random() * 100}%`;
+                    
+                    // Duración y retraso aleatorios
+                    const duration = Math.random() * 3 + 2;
+                    confetti.style.animationDuration = `${duration}s`;
+                    confetti.style.animationDelay = `${Math.random() * 2}s`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // Eliminar después de la animación
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, duration * 1000);
+                }
+            }
+
+            startButton.addEventListener("click", () => {
+                startCountdown();
+                startButton.style.display = "none";
+                restartButton.style.display = "inline-block";
+                createConfetti();
+            });
+
+            restartButton.addEventListener("click", () => {
+                // Reiniciar animaciones
+                box1.classList.remove("visible");
+                box2.classList.remove("visible");
+                heart.classList.remove("visible");
+                
+                document.querySelectorAll(".text-box p").forEach(p => {
+                    p.classList.remove("show");
+                });
+                
+                // Ocultar botón de reinicio
+                restartButton.style.display = "none";
+                startButton.style.display = "inline-block";
+                
+                // Crear más confeti
+                createConfetti();
+            });
+        });
+    </script>
+</body>
+</html>
