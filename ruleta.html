@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ruleta</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #FED4E7; /* Fondo rosa suave */
+      width: 100%;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contenedor {
+      padding: 10px;
+      width: 980px;
+      max-width: calc(100% - 20px);
+      margin-top: 50px;
+      color: #8B008B; /* Texto en tono morado */
+      text-align: center;
+    }
+
+    .planes {
+      margin-top: 20px;
+      text-align: center;
+      margin: auto;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      color: #8B008B; /* Título en tono morado */
+      margin-bottom: 20px;
+    }
+
+    canvas {
+      margin-top: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    button {
+      position: relative;
+      padding: 10px 20px;
+      font-size: 18px;
+      background: #FF69B4; /* Botón en tono rosa */
+      color: #fff;
+      border-style: none;
+      z-index: 10;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .mark-winner {
+      position: absolute;
+      clip-path: polygon(0 10px, 60px 0, 60px 20px);
+      background: #FF69B4; /* Marcador en tono rosa */
+      width: 60px;
+      height: 20px;
+      top: 50%;
+      right: 18%;
+      z-index: 10;
+      box-shadow: 0 0 3px #33333399;
+    }
+
+    .premio{
+      text-align: center;
+      color: #8B008B; /* Título en tono morado */
+      margin-bottom: 20px;
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="contenedor">
+    <h1>Gira la ruleta y gana una de estas recompensas ❤️</h1>
+    <div class="planes">
+      <canvas id="idcanvas" width="600" height="600"></canvas>
+      <br>
+      <button onclick="sortear()" id="boton"><span id="idestado">Girar</span></button>
+
+      <div class="mark-winner"></div>
+    </div>
+    <h3 id="premio" style="display: none;"></h3>
+  </div>
+  <script type="text/javascript">
+     const array_planes =
+      [
+        'Cena romántica'
+        , 'Picnic al atardecer'
+        , 'Spa en casa'
+        , 'Noche de películas'
+        , 'Paseo nocturno'
+        , 'Cena romántica'
+        , 'Picnic al atardecer'
+        , 'Spa en casa'
+        , 'Noche de películas'
+        , 'Paseo nocturno'
+      ];
+
+    let canvas = document.getElementById("idcanvas");
+    let context = canvas.getContext("2d");
+    let center = canvas.width / 2;
+
+    context.beginPath();
+    context.moveTo(center, center);
+    context.arc(center, center, center, 0, 2 * Math.PI);
+    context.lineTo(center, center);
+    context.fillStyle = '#33333333';
+    context.fill();
+
+    context.beginPath();
+    context.moveTo(center, center);
+    context.arc(center, center, center - 10, 0, 2 * Math.PI);
+    context.lineTo(center, center);
+    context.fillStyle = 'black';
+    context.fill();
+
+    for (var i = 0; i < array_planes.length; i++) {
+      context.beginPath();
+      context.moveTo(center, center);
+      context.arc(center, center, center - 20, (i * 2 * Math.PI) / array_planes.length, ((i + 1) * 2 * Math.PI) / array_planes.length);
+      context.lineTo(center, center);
+      context.fillStyle = random_color();
+      context.fill();
+
+      context.save();
+      context.translate(center, center);
+      context.rotate(3 * 2 * Math.PI / (5 * array_planes.length) + i * 2 * Math.PI / array_planes.length);
+      context.translate(-center, -center);
+      context.font = "17px Comic Sans MS";
+      context.textAlign = "right";
+      context.strokeStyle = "black"; // Color del bordeado negro
+      context.lineWidth = 2; // Ancho del bordeado
+      context.strokeText(array_planes[i], canvas.width - 30, center);
+      context.fillStyle = "white";
+      context.fillText(array_planes[i], canvas.width - 30, center);
+      context.restore();
+    }
+
+    let pos_ini = 0;
+    let clic = 0;
+    let movement;
+    function sortear() {
+      if (clic == 0) {
+        let canvas = document.getElementById("idcanvas");
+        movement = setInterval(function () {
+          pos_ini += 10;
+          canvas.style.transform = 'rotate(' + pos_ini + 'deg)';
+        }, 10);
+        clic = 1;
+        document.getElementById("idestado").innerHTML = "Detener";
+      } else {
+        clearInterval(movement);
+        clic = 0;
+        document.getElementById("idestado").innerHTML = "Sortear";
+        document.getElementById("boton").style.display = "none"; // Oculta el botón
+        const seleccionadoIndex = Math.floor((pos_ini % 360) / (360 / array_planes.length));
+        const seleccionado = array_planes[array_planes.length - 1 - seleccionadoIndex];
+        const premioElement = document.getElementById("premio");
+        premioElement.textContent = `Felicidades! Tu premio es: ${seleccionado} ❤️`;
+        premioElement.style.display = "block"; // Muestra el premio ganado
+      }
+    }
+
+    function random_color() {
+      const colors = ["#FF1654", "#FF6B6B", "#FFB7B2", "#FFD3B6", "#FFACD1", "#FFE4E1", "#FFC3A0"];
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      return colors[randomIndex];
+    }
+  </script>
+</body>
+
+</html>

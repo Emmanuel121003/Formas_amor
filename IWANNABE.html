@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Única y Preciosa Estrella</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Parisienne&family=Charm&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-neon-color: #FF69B4; /* Rosa Caliente */
+            --secondary-neon-color: #FFD700; /* Dorado */
+            --accent-color-1: #8A2BE2; /* Azul Violeta */
+            --accent-color-2: #00FFFF; /* Aqua brillante */
+            --bg-color-dark: #0A011A;
+            --bg-color-medium: #2C083A;
+            --bg-color-light: #4A1A5E;
+
+            /* Tamaños base responsivos */
+            --base-font-size-mobile: 1.5rem;
+            --base-font-size-desktop: 1rem;
+            --main-title-size-mobile: 12vw;
+            --main-title-size-desktop: 8.5vw;
+            --tag-text-size-mobile: 6vw;
+            --tag-text-size-desktop: 3.8vw;
+            --rain-item-size-mobile: 4vw;
+            --rain-item-size-desktop: 3.2vw;
+            --emoji-size-mobile: 6vw;
+            --emoji-size-desktop: 4.5vw;
+        }
+
+        body {
+            background: radial-gradient(circle at center, var(--bg-color-light) 0%, var(--bg-color-medium) 30%, var(--bg-color-dark) 70%, #000000 100%);
+            color: #ffffff;
+            font-family: 'Cinzel', serif;
+            margin: 0;
+            overflow: hidden; /* Evita barras de desplazamiento */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gold" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.01L6 12l1.41-1.41L11 15.17l5.59-5.59L18 10.59l-7 7.01z"/><path d="M0 0h24v24H0z" fill="none"/></svg>') 12 12, auto;
+            -webkit-font-smoothing: antialiased; /* Suavizado de fuentes */
+            -moz-osx-font-smoothing: grayscale; /* Suavizado de fuentes */
+            image-rendering: -webkit-optimize-contrast; /* Mejorar la calidad de las imágenes/efectos */
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            z-index: 1;
+            perspective: 1000px;
+            padding: 10px; /* Pequeño padding para evitar que el texto toque los bordes en móvil */
+            box-sizing: border-box; /* Incluir padding en el ancho/alto */
+        }
+
+        .tag-text {
+            font-family: 'Parisienne', cursive;
+            font-size: var(--tag-text-size-mobile); /* Mobile first */
+            color: var(--secondary-neon-color);
+            text-shadow: 0 0 15px var(--secondary-neon-color), 0 0 30px rgba(255, 215, 0, 0.7);
+            margin-bottom: 25px; /* Ajuste para móvil */
+            z-index: 5;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInReveal 2s ease-out forwards;
+            animation-delay: 0.8s;
+            letter-spacing: 1px; /* Ajuste para móvil */
+            transform-origin: center bottom;
+            max-width: 90%; /* Evita desbordamiento en pantallas pequeñas */
+            line-height: 1.2; /* Espaciado entre líneas */
+        }
+
+        .main-title {
+            font-family: 'Charm', cursive;
+            font-size: var(--main-title-size-mobile); /* Mobile first */
+            color: var(--primary-neon-color);
+            text-shadow: 0 0 25px var(--primary-neon-color), 0 0 50px var(--primary-neon-color), 0 0 80px rgba(255, 105, 180, 0.9);
+            padding: 20px 30px; /* Ajuste para móvil */
+            border: 6px solid var(--primary-neon-color);
+            box-shadow: 0 0 30px var(--primary-neon-color), 0 0 60px var(--primary-neon-color), 0 0 100px rgba(255, 105, 180, 0.7);
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            animation: pulseInBounce 3s ease-out forwards;
+            animation-delay: 2s;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px; /* Ajuste para móvil */
+            transform: scale(0.9);
+            letter-spacing: 2px; /* Ajuste para móvil */
+            max-width: 95%; /* Evita desbordamiento en pantallas pequeñas */
+            line-height: 1.1; /* Espaciado entre líneas */
+            white-space: nowrap; /* Evita que el texto se rompa si la pantalla es muy pequeña */
+        }
+
+        /* MEDIA QUERIES para PC / Pantallas más grandes */
+        @media (min-width: 768px) {
+            .tag-text {
+                font-size: var(--tag-text-size-desktop);
+                text-shadow: 0 0 20px var(--secondary-neon-color), 0 0 40px rgba(255, 215, 0, 0.8);
+                margin-bottom: 30px;
+                letter-spacing: 2px;
+            }
+
+            .main-title {
+                font-size: var(--main-title-size-desktop);
+                text-shadow: 0 0 30px var(--primary-neon-color), 0 0 60px var(--primary-neon-color), 0 0 100px rgba(255, 105, 180, 0.9);
+                padding: 30px 60px;
+                border: 8px solid var(--primary-neon-color);
+                box-shadow: 0 0 40px var(--primary-neon-color), 0 0 80px var(--primary-neon-color), 0 0 120px rgba(255, 105, 180, 0.7);
+                border-radius: 25px;
+                letter-spacing: 3px;
+                white-space: normal; /* Permitir que el texto se rompa en varias líneas en PC */
+            }
+        }
+
+
+        @keyframes fadeInReveal {
+            0% { opacity: 0; transform: translateY(-80px) rotateX(-30deg); }
+            100% { opacity: 1; transform: translateY(0) rotateX(0deg); }
+        }
+
+        @keyframes pulseInBounce {
+            0% { opacity: 0; transform: scale(0.7) rotateY(15deg); }
+            50% { opacity: 1; transform: scale(1.1) rotateY(-5deg); }
+            75% { transform: scale(0.95) rotateY(2deg); }
+            100% { opacity: 1; transform: scale(1) rotateY(0deg); }
+        }
+
+        /* Estilo para los elementos de lluvia (ajuste responsivo) */
+        .rain-item {
+            position: absolute;
+            top: -50px;
+            white-space: nowrap;
+            pointer-events: none;
+            font-family: 'Dancing Script', cursive;
+            font-size: var(--rain-item-size-mobile); /* Mobile first */
+            opacity: 0.9;
+            will-change: transform, opacity;
+            text-shadow: 0 0 10px currentColor, 0 0 20px rgba(255, 255, 255, 0.4); /* Brillo potente */
+        }
+
+        .rain-item.emoji {
+            font-size: var(--emoji-size-mobile); /* Mobile first */
+            filter: drop-shadow(0 0 15px currentColor);
+        }
+
+        @media (min-width: 768px) {
+            .rain-item {
+                font-size: var(--rain-item-size-desktop);
+                text-shadow: 0 0 12px currentColor, 0 0 25px rgba(255, 255, 255, 0.5);
+            }
+            .rain-item.emoji {
+                font-size: var(--emoji-size-desktop);
+                filter: drop-shadow(0 0 20px currentColor);
+            }
+        }
+
+
+        /* Estilo para las partículas de brillo ("Diamond Dust") */
+        .diamond-dust {
+            position: absolute;
+            background: radial-gradient(circle, #E0FFFF, #FFFAFA, #DDA0DD);
+            border-radius: 50%;
+            opacity: 0;
+            animation: diamond-dust-float 15s infinite ease-in-out;
+            pointer-events: none;
+            box-shadow: 0 0 10px #E0FFFF, 0 0 20px #DDA0DD;
+            z-index: 0;
+        }
+
+        @keyframes diamond-dust-float {
+            0% { transform: translateY(0) translateX(0) scale(0.3); opacity: 0; }
+            10% { opacity: 0.9; transform: scale(1); }
+            90% { opacity: 0.7; transform: translateY(-150vh) translateX(calc(var(--rand-x) * 1px)) scale(0.7) rotateZ(var(--rand-rot) * 1deg); }
+            100% { opacity: 0; transform: translateY(-160vh) scale(0.2); }
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg) scale(1) perspective(500px) rotateX(0deg); opacity: 0.9; }
+            100% { transform: translateY(140vh) rotate(1440deg) scale(0.2) perspective(500px) rotateX(90deg); opacity: 0; }
+        }
+
+        /* Animación y estilo responsivo para el botón de música */
+        #music-toggle {
+            position: fixed;
+            bottom: 20px; /* Ajuste para móvil */
+            left: 20px; /* Ajuste para móvil */
+            background-color: rgba(255, 105, 180, 0.9);
+            color: white;
+            border: 3px solid var(--secondary-neon-color);
+            border-radius: 50%;
+            width: 55px; /* Ajuste para móvil */
+            height: 55px; /* Ajuste para móvil */
+            font-size: 1.8em; /* Ajuste para móvil */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--primary-neon-color), 0 0 40px var(--secondary-neon-color);
+            z-index: 100;
+            transition: transform 0.4s ease, background-color 0.4s ease;
+            animation: neonPulse 2s infinite alternate;
+        }
+
+        #music-toggle:hover {
+            transform: scale(1.15);
+            background-color: var(--primary-neon-color);
+        }
+
+        @media (min-width: 768px) {
+            #music-toggle {
+                bottom: 30px;
+                left: 30px;
+                width: 60px;
+                height: 60px;
+                font-size: 2em;
+            }
+        }
+
+        @keyframes neonPulse {
+            from { box-shadow: 0 0 10px var(--primary-neon-color), 0 0 20px var(--secondary-neon-color); }
+            to { box-shadow: 0 0 20px var(--primary-neon-color), 0 0 40px var(--secondary-neon-color); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tag-text">Para mi luz entre las estrellas</div>
+        <div class="main-title">Mi Única y Preciosa Estrella</div>
+    </div>
+
+    <!-- Audio que se reproduce automáticamente -->
+    <audio id="bg-music" autoplay loop muted>
+        <source src="https://raw.githubusercontent.com/JhosepLQ/JHOSEPLQ/main/IWANA.mp3" type="audio/mpeg">
+        Tu navegador no soporta la reproducción de audio.
+    </audio>
+
+    <!-- JavaScript para activar sonido tras interacción -->
+    <script>
+        const audio = document.getElementById('bg-music');
+
+        // Algunos navegadores requieren interacción para reproducir con sonido
+        document.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch(e => console.log('Error al reproducir:', e));
+            }
+            audio.muted = false;
+        });
+        const wordsAndEmojis = [
+            // ¡Frases más románticas y elevadas! (Puedes seguir añadiendo y personalizando)
+            { text: 'Mi Galaxia Completa', color: '#FFD700' }, // Dorado
+            { text: 'Dulce Ensueño', color: '#9932CC' }, // Púrpura Profundo
+            { text: 'Mi Constelación', color: '#00FFFF' }, // Aqua
+            { text: 'Destello Divino', color: '#FF6347' }, // Rojo Coral
+            { text: 'Mi Edén Personal', color: '#7FFF00' }, // Verde Esmeralda
+            { text: 'Joyas de Mis Ojos', color: '#BA55D3' }, // Orquídea Media
+            { text: 'El Brillo de Mi Ser', color: '#F0E68C' }, // Caqui suave
+            { text: 'La Joya Más Valiosa', color: '#FF1493' }, // Rosa Profundo
+            { text: 'Mi Milagro Cotidiano', color: '#FFA07A' }, // Salmón Claro
+            { text: 'Perfecta Sin Esfuerzo', color: '#87CEFA' }, // Azul Cielo Ligero
+            { text: 'Mi Razón de Existir', color: '#DA70D6' }, // Orquídea
+            { text: 'Inigualable Belleza', color: '#FFC0CB' }, // Rosa Pastel
+            { text: 'Amor Infinito', color: '#ADD8E6' }, // Azul Claro
+            { text: 'La Magia de Mi Vida', color: '#FFFFF0' }, // Blanco Marfil
+            { text: 'Ángel Terrenal', color: '#DDA0DD' }, // Ciruela Claro
+            { text: 'Sonrisa de Ensueño', color: '#00FA9A' }, // Verde Menta
+            { text: 'Eterna Admiración', color: '#FF69B4' }, // Rosa Caliente
+            { text: 'Mi Reflejo Perfecto', color: '#A9A9A9' }, // Gris Oscuro (para un toque platino)
+            { text: 'Destino Entrelazado', color: '#40E0D0' }, // Turquesa
+            { text: 'Mi Poema Viviente', color: '#FFB6C1' }, // Rosa claro
+            { text: 'Universo en Tus Ojos', color: '#CCCCFF' }, // Lavanda
+            { text: 'Elegancia Divina', color: '#E6E6FA' }, // Lavanda Blanca
+            { text: 'Mi Constante Amor', color: '#FF8C00' }, // Naranja oscuro
+
+            // Emojis con más brillo y significado
+            { text: '💖', color: '#FF69B4', isEmoji: true },
+            { text: '✨', color: '#FFFF00', isEmoji: true },
+            { text: '👑', color: '#FFD700', isEmoji: true },
+            { text: '🌟', color: '#00FFFF', isEmoji: true },
+            { text: '💫', color: '#DA70D6', isEmoji: true },
+            { text: '💎', color: '#ADD8E6', isEmoji: true },
+            { text: '🌸', color: '#FFB6C1', isEmoji: true },
+            { text: '🦋', color: '#BA55D3', isEmoji: true },
+            { text: '🌹', color: '#FF0000', isEmoji: true },
+            { text: '💕', color: '#FFC0CB', isEmoji: true },
+            { text: '🌈', color: '#ADD8E6', isEmoji: true },
+            { text: '🦢', color: '#E0FFFF', isEmoji: true },
+            { text: '🌙', color: '#90EE90', isEmoji: true },
+            { text: '💞', color: '#FF1493', isEmoji: true },
+            { text: '🤍', color: '#FFFFFF', isEmoji: true },
+            { text: '😇', color: '#F0E68C', isEmoji: true },
+            { text: '🥰', color: '#FFE4B5', isEmoji: true },
+            { text: '🕊️', color: '#E0FFFF', isEmoji: true },
+            { text: '🔮', color: '#FF00FF', isEmoji: true }, /* Cristal mágico */
+            { text: '✨', color: '#FFD700', isEmoji: true }, /* Otro brillo */
+            { text: '💫', color: '#00FFFF', isEmoji: true },  /* Otro destello */
+            { text: '💖', color: '#FFC0CB', isEmoji: true }, /* Corazón pastel */
+            { text: '✨', color: '#FFA500', isEmoji: true }, /* Chispas naranja */
+            { text: '🎀', color: '#FF69B4', isEmoji: true }, /* Lazo rosa */
+            { text: '💖', color: '#EE82EE', isEmoji: true }  /* Corazón violeta */
+        ];
+
+        const container = document.body;
+
+        function createRainItem() {
+            const itemData = wordsAndEmojis[Math.floor(Math.random() * wordsAndEmojis.length)];
+            const rainItem = document.createElement('span');
+            rainItem.classList.add('rain-item');
+            if (itemData.isEmoji) {
+                rainItem.classList.add('emoji');
+            }
+            rainItem.textContent = itemData.text;
+            rainItem.style.color = itemData.color;
+
+            rainItem.style.left = Math.random() * 100 + 'vw';
+            container.appendChild(rainItem);
+
+            // Ajuste de duración y delay para que se vea bien en diferentes pantallas
+            const animationDuration = Math.random() * 12 + 10; // Duración entre 10 y 22 segundos
+            const delay = Math.random() * 5; // Retraso inicial hasta 5 segundos
+
+            rainItem.style.animation = `fall ${animationDuration}s linear ${delay}s forwards`;
+            rainItem.style.top = `${-rainItem.offsetHeight}px`;
+
+            rainItem.addEventListener('animationend', () => {
+                rainItem.remove();
+            });
+        }
+
+        // Función para crear partículas de brillo ("Diamond Dust")
+        function createDiamondDust() {
+            const dust = document.createElement('div');
+            dust.classList.add('diamond-dust');
+            const size = Math.random() * 8 + 4; // Tamaño entre 4px y 12px
+            dust.style.width = `${size}px`;
+            dust.style.height = `${size}px`;
+            dust.style.left = Math.random() * 100 + 'vw';
+            dust.style.top = `calc(100vh + ${Math.random() * 300}px)`;
+            dust.style.animationDuration = `${Math.random() * 15 + 10}s`;
+            dust.style.animationDelay = `${Math.random() * 8}s`;
+            dust.style.setProperty('--rand-x', (Math.random() - 0.5) * 300);
+            dust.style.setProperty('--rand-rot', Math.random() * 720 - 360);
+
+            container.appendChild(dust);
+
+            dust.addEventListener('animationend', () => {
+                dust.remove();
+            });
+        }
+
+        // Generar nuevos elementos de lluvia (más frecuentes para un efecto WOW)
+        setInterval(createRainItem, 150); // Cada 150ms
+
+        // Generar nuevas partículas de brillo (más frecuentes)
+        setInterval(createDiamondDust, 250); // Cada 250ms
+
+        // Control de música
+        const backgroundMusic = document.getElementById('background-music');
+        const musicToggleButton = document.getElementById('music-toggle');
+        let isPlaying = false; // Estado inicial: no reproduciendo
+
+        // Intentar reproducir automáticamente (con manejo de errores)
+        document.addEventListener('DOMContentLoaded', () => {
+            backgroundMusic.volume = 0.4;
+            backgroundMusic.play().then(() => {
+                isPlaying = true;
+                musicToggleButton.textContent = '⏸️'; // Icono de pausa
+            }).catch(e => {
+                console.log("Autoplay blocked:", e);
+                isPlaying = false;
+                musicToggleButton.textContent = '🎵'; // Icono de música
+                // Opcional: Mostrar un mensaje al usuario para que presione el botón
+                // alert("Por favor, haz clic en el botón de música para iniciar la melodía.");
+            });
+        });
+
+        // Toggle para reproducir/pausar con el botón
+        musicToggleButton.addEventListener('click', () => {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                musicToggleButton.textContent = '🎵'; // Icono de música
+                isPlaying = false;
+            } else {
+                backgroundMusic.play().then(() => {
+                    musicToggleButton.textContent = '⏸️'; // Icono de pausa
+                    isPlaying = true;
+                }).catch(e => {
+                    console.log("No se pudo reproducir el audio:", e);
+                    // Aquí podrías añadir una alerta o mensaje si el usuario sigue sin poder reproducirlo.
+                });
+            }
+        });
+    </script>
+</body>
+</html>

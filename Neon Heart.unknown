@@ -1,0 +1,50 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: https://dedicapag.pro/codes/corazon_neon.html
+Subject: Neon Heart
+Date: Wed, 11 Jun 2025 09:46:18 -0500
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--PoK7fggFyzCalmYVn2nFbYR1WDFPKe3rUsW6Rqtg0w----"
+
+
+------MultipartBoundary--PoK7fggFyzCalmYVn2nFbYR1WDFPKe3rUsW6Rqtg0w----
+Content-Type: text/html
+Content-ID: <frame-1338E89CC0F546FF93360A942F949E1F@mhtml.blink>
+Content-Transfer-Encoding: binary
+Content-Location: https://dedicapag.pro/codes/corazon_neon.html
+
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="cid:css-bad2d8f0-2ca7-4d89-a668-e40ab9388aca@mhtml.blink" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Neon Heart</title>
+  </head>
+  <body>
+    <p class="text" id="loveText">Me encantas</p>
+    <canvas id="canvas" width="0" height="0" style="width: 0px; height: 0px;"></canvas>
+    
+  
+</body></html>
+------MultipartBoundary--PoK7fggFyzCalmYVn2nFbYR1WDFPKe3rUsW6Rqtg0w----
+Content-Type: text/css
+Content-Transfer-Encoding: binary
+Content-Location: cid:css-bad2d8f0-2ca7-4d89-a668-e40ab9388aca@mhtml.blink
+
+@charset "utf-8";
+
+body { background-color: rgb(0, 0, 0); margin: 0px; overflow: hidden; background-repeat: no-repeat; height: 100vh; display: flex; justify-content: center; align-items: center; }
+
+.text { position: absolute; color: rgb(255, 255, 255); left: 50%; top: 30%; transform: translate(-50%, -50%); z-index: 100; font-size: 10vw; font-family: "Great Vibes", cursive; text-shadow: rgb(255, 105, 180) 0px 0px 10px, rgb(255, 20, 147) 0px 0px 20px, rgb(255, 20, 147) 0px 0px 30px; animation: 2s ease-in-out 0s infinite normal none running glowPulse; text-align: center; pointer-events: none; }
+
+@media (max-width: 600px) {
+  .text { font-size: 12vw; top: 15%; }
+}
+
+@keyframes glowPulse { 
+  0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(0.95); text-shadow: rgb(255, 105, 180) 0px 0px 10px, rgb(255, 20, 147) 0px 0px 20px, rgb(255, 20, 147) 0px 0px 30px; }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); text-shadow: rgb(255, 105, 180) 0px 0px 15px, rgb(255, 20, 147) 0px 0px 25px, rgb(255, 20, 147) 0px 0px 40px; }
+}
+
+canvas { width: 100%; height: 100%; display: block; }
+------MultipartBoundary--PoK7fggFyzCalmYVn2nFbYR1WDFPKe3rUsW6Rqtg0w------
