@@ -174,14 +174,21 @@
         <div class="main-title">Princesa del Alma</div>
     </div>
 
-    <button id="music-toggle">🎵</button>
-
-    <audio id="background-music" loop>
-        <source src="https://raw.githubusercontent.com/Emmanuel121003/Formas_amor/main/Linda.mp3" type="audio/mpeg">
+     <audio id="bg-music" autoplay loop muted>
+        <source src="https://raw.githubusercontent.com/Emmanuel121003/Formas_amor/refs/heads/main/Linda.mp3" type="audio/mpeg">
         Tu navegador no soporta el elemento de audio.
     </audio>
 
     <script>
+        const audio = document.getElementById('bg-music');
+
+        // Algunos navegadores requieren interacción para reproducir con sonido
+        document.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch(e => console.log('Error al reproducir:', e));
+            }
+            audio.muted = false;
+        });
         const wordsAndEmojis = [
             // ¡Frases aún más románticas y elevadas!
             { text: 'Mi Galaxia Completa', color: '#FFD700' }, // Dorado
